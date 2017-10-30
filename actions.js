@@ -27,7 +27,7 @@ if (messageText) {
 
     switch (messageText) {
       case 'about':
-        Messages.sendTextMessage(senderID, "about curly girl");
+        Messages.sendGreeting(senderID);
         break;
       case 'generic':
         Messages.sendGenericMessage(senderID);
@@ -51,16 +51,11 @@ function receivedPostback(event) {
   console.log("postback received");
   var payload = event.postback.payload;
   if (payload === "get_started"){
-      Messages.sendTextMessage(senderID, "Welcome, as a baby \uD83D\uDC76 bot \uD83E\uDD16 right now all I can really do is read ingredients. Would you like to send me some? I'll take a look.");
+      Messages.sendGreeting(senderID);
   }
-  if (payload === "about_curly_girl"){
-    var introMessage = "The curly girl method is a way of caring for your naturally curly or wavy hair that helps it look its best."
-    + "A important principle is hair should be gently washed without sulfates using a sulfate-free shampoo or conditioner cowash."
-    + "But that also means that you need to avoid most silicones and waxes, which build up on the hair and require sulfates to remove."
-    + "I can help you find what products have the right ingredients, just send me ingredient lists and I'll do the detective work.";
-    Messages.sendTextMessage(senderID, introMessage);
-    Messages.sendTextMessage(senderID, "Here are some links and books you might find helpful for learning about the curly girl method");
-    Messages.sendGenericMessage(senderID);
+  if (payload === "work"){
+  
+    Messages.sendTextMessage(senderID, "I work a lot OK?");
   }
 
   console.log("Received postback for user %d and page %d with payload '%s' " + 

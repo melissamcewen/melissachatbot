@@ -2,7 +2,7 @@ const request = require('request');
 var API = require('./api');
 
 
-
+//This is a basic text reply
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
@@ -16,6 +16,8 @@ function sendTextMessage(recipientId, messageText) {
 
   return API.callSendAPI(messageData);
 }
+
+/// this is an example of using an advanced template
 
 function sendGenericMessage(recipientId) {
   var messageData = {
@@ -56,8 +58,7 @@ function sendGenericMessage(recipientId) {
 }
 
 
-
-function sendLink(recipientId, url, title) {
+function sendGreeting(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -66,17 +67,21 @@ function sendLink(recipientId, url, title) {
       attachment: {
         type: "template",
         payload: {
-          template_type: "generic",
-          elements: [{
-            title: title,
-            "buttons":[
-              {
-                "type":"web_url",
-                "url": url,
-                "title":"View Website"
-              }           
-            ] 
-          }]
+          template_type: "button",
+          text: "Hi this is the bot version of Melissa McEwen, I'm a web developer and writer based in Chicago, IL. What would you like to know about me?",
+          buttons:[
+          {
+            type:"postback",
+            payload:"work",
+            title:"I'd like to know about your work"
+          },
+          {
+            type:"web_url",
+            url: "http://google.com",
+            title: "Go to google"
+          }
+        
+        ]
         }
       }
     }
@@ -85,31 +90,12 @@ function sendLink(recipientId, url, title) {
   API.callSendAPI(messageData);
 }
 
-function sendTextList(recipientId, intro, array) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: intro
-    }
-  };
-  
-   array.forEach(function(listItem) {
-      messageData.message.text  += "\n" + listItem;
-  });
-  
-
-  API.callSendAPI(messageData);
-}
-
-
-
 
 
 
 
 module.exports = {
    sendTextMessage,
-   sendGenericMessage
+   sendGenericMessage,
+   sendGreeting
 }
