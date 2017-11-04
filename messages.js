@@ -1,8 +1,8 @@
 const request = require('request');
-var API = require('./api');
+const API = require('./api');
 
 
-
+//This is a basic text reply
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
@@ -16,6 +16,8 @@ function sendTextMessage(recipientId, messageText) {
 
   return API.callSendAPI(messageData);
 }
+
+/// this is an example of using an advanced template
 
 function sendGenericMessage(recipientId) {
   var messageData = {
@@ -56,8 +58,7 @@ function sendGenericMessage(recipientId) {
 }
 
 
-
-function sendLink(recipientId, url, title) {
+function sendGreeting(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
@@ -66,17 +67,21 @@ function sendLink(recipientId, url, title) {
       attachment: {
         type: "template",
         payload: {
-          template_type: "generic",
-          elements: [{
-            title: title,
-            "buttons":[
-              {
-                "type":"web_url",
-                "url": url,
-                "title":"View Website"
-              }           
-            ] 
-          }]
+          template_type: "button",
+          text: "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming. But she won't discover that it's him 'til Chapter Three!",
+          buttons:[
+          {
+            type:"postback",
+            payload:"work",
+            title:"Your likes"
+          },
+          {
+            type:"web_url",
+            url: "http://google.com",
+            title: "Your life"
+          }
+        
+        ]
         }
       }
     }
@@ -85,31 +90,12 @@ function sendLink(recipientId, url, title) {
   API.callSendAPI(messageData);
 }
 
-function sendTextList(recipientId, intro, array) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      text: intro
-    }
-  };
-  
-   array.forEach(function(listItem) {
-      messageData.message.text  += "\n" + listItem;
-  });
-  
-
-  API.callSendAPI(messageData);
-}
-
-
-
 
 
 
 
 module.exports = {
    sendTextMessage,
-   sendGenericMessage
+   sendGenericMessage,
+   sendGreeting
 }

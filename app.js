@@ -1,5 +1,5 @@
 // Start our server
-var Webserver = require('./server');
+const Webserver = require('./server');
 
 //
 // Section 1: Our Server
