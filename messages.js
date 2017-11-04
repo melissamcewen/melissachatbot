@@ -1,5 +1,5 @@
 const request = require('request');
-var API = require('./api');
+const API = require('./api');
 
 
 //This is a basic text reply
@@ -68,17 +68,17 @@ function sendGreeting(recipientId) {
         type: "template",
         payload: {
           template_type: "button",
-          text: "Hi this is the bot version of Melissa McEwen, I'm a web developer and writer based in Chicago, IL. What would you like to know about me?",
+          text: "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming. But she won't discover that it's him 'til Chapter Three!",
           buttons:[
           {
             type:"postback",
             payload:"work",
-            title:"I'd like to know about your work"
+            title:"Your likes"
           },
           {
             type:"web_url",
             url: "http://google.com",
-            title: "Go to google"
+            title: "Your life"
           }
         
         ]
