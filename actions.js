@@ -23,8 +23,22 @@ function receivedMessage(event) {
 if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the template example. Otherwise, just echo the text we received.
-   if(messageText.includes('about')){
-      Messages.sendTextMessage(senderID, "about");
+   if(messageText.includes('hello')){
+      var messageText= "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming But she won't discover that it's him 'til Chapter Three!";
+      var buttons = [
+          {
+            type:"postback",
+            payload:"likes",
+            title:"Your likes"
+          },
+          {
+            type:"postback",
+            payload: "life",
+            title: "Your life"
+          }
+        
+        ];
+      Messages.sendButtons(senderID, messageText, buttons);
    } else if (messageText.includes('meow')) {
     Messages.sendTextMessage(senderID, "meow");
 
@@ -66,12 +80,128 @@ function receivedPostback(event) {
         {
           type:"postback",
           payload:"books",
-          title:"your favorite books?"
+          title:"Fav books"
         },
         {
           type:"postback",
-          payload: "go",
-          title: "Where do you want to go?"
+          payload: "dreams",
+          title: "Your dreams"
+        },
+        {
+          type:"postback",
+          payload: "dislikes",
+          title: "Your dislikes"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
+  }
+  
+  if (payload === "books"){
+    var messageText = "My favorite book lately is Romeo & Juliet. It's about two lovers in fair Verona."
+    var buttons = [
+        {
+          type:"postback",
+          payload:"goodbye",
+          title:"Goodbye"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
+  }
+  
+  if (payload === "dreams"){
+    var messageText = " I am not sure exactly about all my dreams, but I know I want adventure in the great wide somewhere. I want it more than I can tell. "
+    var buttons = [
+        {
+          type:"postback",
+          payload:"goodbye",
+          title:"Goodbye"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
+  }
+  
+  if (payload === "dislikes"){
+    var messageText = "Well there is this man in town named Gaston. Boorish, brainless. He thinks I would want to be his wife. Can you imagine?"
+    var buttons = [
+        {
+          type:"postback",
+          payload:"goodbye",
+          title:"Goodbye"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
+  }
+  
+  
+  if (payload === "life"){
+    var messageText = "I was just about to go for a walk in town, get a new book to read. I love reading. The library makes our small corner of the world feel big."
+    var buttons = [
+        {
+          type:"postback",
+          payload:"town",
+          title:"Your town"
+        },
+        {
+          type:"postback",
+          payload: "family",
+          title: "Your family"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
+  }
+  
+  if (payload === "town"){
+    var messageText = "Our town isn't much. A quiet village, every day like the one before. Little town, full of little people. I want much more than this provincial life!"
+    var buttons = [
+        {
+          type:"postback",
+          payload:"goodbye",
+          title:"Goodbye"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
+  }
+  
+  if (payload === "family"){
+    var messageText = "Oh it's just me and my father, Maurice, he's an inventor. He wants to give up, he's had so much trouble getting his new contraption to work. But I believe in him! We also have a horse, Philippe."
+    var buttons = [
+        {
+          type:"postback",
+          payload:"goodbye",
+          title:"Goodbye"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
+  }
+  
+  if (payload === "goodbye"){
+    var messageText = "Well thanks for talking to me, I'm off now, need to put my books in the basket and get to town. I hope Gaston isn't there! Last time I saw him he took my book and threw it into a puddle."
+    var buttons = [
+        {
+          type:"postback",
+          payload:"get_started",
+          title:"Talk again"
         }
 
       ];
@@ -80,12 +210,10 @@ function receivedPostback(event) {
 
   }
 
+
   console.log("Received postback for user %d and page %d with payload '%s' " + 
     "at %d", senderID, recipientID, payload, timeOfPostback);
 
-  // When a postback is called, we'll send a message back to the sender to 
-  // let them know it was successful
-  //sendTextMessage(senderID, "Postback called");
 }
 
 
