@@ -19,30 +19,16 @@ function sendTextMessage(recipientId, messageText) {
 
 
 
-function sendGreeting(recipientId) {
+function sendImage(recipientId, image) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
       attachment: {
-        type: "template",
+        type: "image",
         payload: {
-          template_type: "button",
-          text: "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming. But she won't discover that it's him 'til Chapter Three!",
-          buttons:[
-          {
-            type:"postback",
-            payload:"likes",
-            title:"Your likes"
-          },
-          {
-            type:"postback",
-            payload: "life",
-            title: "Your life"
-          }
-        
-        ]
+          url: image,
         }
       }
     }
@@ -77,6 +63,6 @@ function sendButtons(recipientId, text, buttons) {
 
 module.exports = {
    sendTextMessage,
-   sendButtons,
-   sendGreeting
+   sendImage,
+   sendButtons
 }
