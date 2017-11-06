@@ -41,6 +41,10 @@ if (messageText) {
    } else if (messageText.includes('cat')) {
      Messages.sendImage(senderID, "https://cdn.glitch.com/44cfff99-bafa-46b5-83fd-f45ca0be132c%2Fcat.jpg?1509940641670");
 
+   } else if (messageText.includes('meow')){
+     //meow back
+     Messages.sendTextMessage(senderID, "meow");
+
    } else {
     // no meow and no hello? Well then our bot has no idea what to do at all, so let's send back a message to let them know our bot is confused
      Messages.sendTextMessage(senderID, "I'm confused");
