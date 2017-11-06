@@ -23,18 +23,15 @@ function receivedMessage(event) {
 if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the template example. Otherwise, just echo the text we received.
+   if(messageText.includes('about')){
+      Messages.sendTextMessage(senderID, "about");
+   } else if (messageText.includes('meow')) {
+    Messages.sendTextMessage(senderID, "meow");
 
-    switch (messageText) {
-      case 'about':
-        Messages.sendGreeting(senderID);
-        break;
-      case 'generic':
-        Messages.sendGenericMessage(senderID);
-        break;
+   } else {
+     Messages.sendTextMessage(senderID, "I'm confused");
 
-      default:
-        Messages.sendTextMessage(senderID, messageText);
-    }
+   }
   } else if (messageAttachments) {
     Messages.sendTextMessage(senderID, "Oops, I'm just a baby bot, I don't know how to read pictures yet, I'll let you know when I can.");
   }
@@ -44,17 +41,43 @@ function receivedPostback(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfPostback = event.timestamp;
-
-  // The 'payload' param is a developer-defined field which is set in a postback 
-  // button for Structured Messages. 
   console.log("postback received");
   var payload = event.postback.payload;
   if (payload === "get_started"){
-      Messages.sendGreeting(senderID);
+     var messageText= "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming But she won't discover that it's him 'til Chapter Three!";
+      var buttons = [
+          {
+            type:"postback",
+            payload:"likes",
+            title:"Your likes"
+          },
+          {
+            type:"postback",
+            payload: "life",
+            title: "Your life"
+          }
+        
+        ];
+      Messages.sendButtons(senderID, messageText, buttons);
   }
-  if (payload === "work"){
-  
-    Messages.sendTextMessage(senderID, "I work a lot OK?");
+  if (payload === "likes"){
+    var messageText = "In this little village there isn't much, Père Robert's bookstore is just about my favorite place to go."
+    var buttons = [
+        {
+          type:"postback",
+          payload:"books",
+          title:"your favorite books?"
+        },
+        {
+          type:"postback",
+          payload: "go",
+          title: "Where do you want to go?"
+        }
+
+      ];
+    
+    Messages.sendButtons(senderID, messageText, buttons);
+
   }
 
   console.log("Received postback for user %d and page %d with payload '%s' " + 
