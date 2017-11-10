@@ -15,11 +15,8 @@ function receivedMessage(event) {
   // let's also log some info about the received message in the console
   console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
   console.log(JSON.stringify(message));
-
-
-
-
-if (messageText) {
+  
+  if (messageText) {
     // If we receive a text message, check to see if it matches a keyword and send the correct response
     // if it contains hello, do the following
    if(messageText.includes('hello')){
@@ -65,7 +62,7 @@ function receivedPostback(event) {
 
   // if our payload/action is "get_started", send them a message with the following buttons
   if (payload === "get_started"){
-     var messageText= "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming But she won't discover that it's him 'til Chapter Three!";
+     var messageText= "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming. But she won't discover that it's him 'til Chapter Three. Would you like to know about the things I like? Or maybe about my life?";
      var buttons = [
      {
       type:"postback",
@@ -81,8 +78,9 @@ function receivedPostback(event) {
     ];
     Messages.sendButtons(senderID, messageText, buttons);
   }
+  
   if (payload === "likes"){
-    var messageText = "In this little village there isn't much, Père Robert's bookstore is just about my favorite place to go."
+    var messageText = "In this little village there isn't much, Père Robert's bookstore is just about my favorite place to go. Do you want to know about my favorite books? My dreams? Or maybe what I dislike?"
     var buttons = [
     {
       type:"postback",
@@ -153,7 +151,7 @@ function receivedPostback(event) {
   
   
   if (payload === "life"){
-    var messageText = "I was just about to go for a walk in town, get a new book to read. I love reading. The library makes our small corner of the world feel big."
+    var messageText = "I was just about to go for a walk in town, get a new book to read. I love reading. The library makes our small corner of the world feel big. Would you like to know more about the town? Or about my family?"
     var buttons = [
     {
       type:"postback",

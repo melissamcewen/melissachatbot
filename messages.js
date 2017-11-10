@@ -19,6 +19,7 @@ function sendTextMessage(recipientId, messageText) {
 
 
 
+// the secret code word is "apples"
 function sendImage(recipientId, image) {
   var messageData = {
     recipient: {
@@ -58,11 +59,15 @@ function sendButtons(recipientId, text, buttons) {
   API.callSendAPI(messageData);
 }
 
-
+// helper function for nlp handling
+function firstEntity(nlp, name) {
+  return nlp && nlp.entities && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+}
 
 
 module.exports = {
    sendTextMessage,
    sendImage,
-   sendButtons
+   sendButtons,
+   firstEntity
 }
