@@ -19,30 +19,17 @@ function sendTextMessage(recipientId, messageText) {
 
 
 
-function sendGreeting(recipientId) {
+// the secret code word is "apples"
+function sendImage(recipientId, image) {
   var messageData = {
     recipient: {
       id: recipientId
     },
     message: {
       attachment: {
-        type: "template",
+        type: "image",
         payload: {
-          template_type: "button",
-          text: "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming. But she won't discover that it's him 'til Chapter Three!",
-          buttons:[
-          {
-            type:"postback",
-            payload:"likes",
-            title:"Your likes"
-          },
-          {
-            type:"postback",
-            payload: "life",
-            title: "Your life"
-          }
-        
-        ]
+          url: image,
         }
       }
     }
@@ -72,11 +59,15 @@ function sendButtons(recipientId, text, buttons) {
   API.callSendAPI(messageData);
 }
 
-
+// helper function for nlp handling
+function firstEntity(nlp, name) {
+  return nlp && nlp.entities && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+}
 
 
 module.exports = {
    sendTextMessage,
+   sendImage,
    sendButtons,
-   sendGreeting
+   firstEntity
 }
