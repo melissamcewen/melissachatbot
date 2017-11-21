@@ -1,5 +1,7 @@
 const Messages = require('./messages');
 const request = require('request');
+const async = require('async');
+
 
 function receivedMessage(event) {
   // this function should run when we receive a message
@@ -20,7 +22,7 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches a keyword and send the correct response
     // if it contains hello, do the following
    if(messageText.includes('hello')){
-      var messageText= "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming But she won't discover that it's him 'til Chapter Three!";
+      var messageText= "Oh hello! Sorry I didn't notice you, I've been reading this wonderful book. It's my favorite part because—you'll see Here's where she meets Prince Charming. But she won't discover that it's him 'til Chapter Three. Would you like to know about the things I like? Or maybe about my life?";
       var buttons = [
           {
             type:"postback",
@@ -39,8 +41,18 @@ function receivedMessage(event) {
      Messages.sendImage(senderID, "https://cdn.glitch.com/44cfff99-bafa-46b5-83fd-f45ca0be132c%2Fcat.jpg?1509940641670");
 
    } else if (messageText.includes('meow')){
-     //meow back
-     Messages.sendTextMessage(senderID, "meow");
+      async function executeSequentially() {
+          try {
+            await Messages.sendTextMessage(senderID, "meow 1");
+            await Messages.sendTextMessage(senderID, "meow 2");
+            await Messages.sendTextMessage(senderID, "meow 3");
+            await Messages.sendTextMessage(senderID, "meow 4");
+          } catch (err) {
+            console.log("error");
+          }
+       }
+     
+      executeSequentially()
 
    } else {
     // no meow and no hello? Well then our bot has no idea what to do at all, so let's send back a message to let them know our bot is confused
